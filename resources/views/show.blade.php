@@ -54,14 +54,33 @@
                         </div>
                     </div>
 
-                    @if ($movie['videos']['results'] > 0)
-                        <div class="mt-12">
-                            <a href="https://www.youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank" class="flex inline-flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
-                                <svg class="w-6 fil-current" viewBox="0 0 499.999 499.999" ><path d="m171.875 372.237c-2.701 0-5.402-.702-7.812-2.09-4.837-2.792-7.812-7.95-7.812-13.535v-215.987c0-5.585 2.975-10.727 7.797-13.519 4.837-2.792 10.788-2.838 15.625-.015l187.5 107.94c4.837 2.777 7.828 7.95 7.828 13.535s-2.975 10.742-7.828 13.535l-187.5 108.047c-2.412 1.388-5.113 2.089-7.798 2.089zm15.625-204.589v161.926l140.564-81.009c-.001 0-140.564-80.917-140.564-80.917z"/><path d="m250 499.999c-137.848 0-250-112.152-250-250s112.152-249.999 250-249.999 250 112.152 250 250-112.153 249.999-250 249.999zm0-468.749c-120.62 0-218.75 98.129-218.75 218.75s98.129 218.75 218.75 218.75 218.749-98.13 218.749-218.75-98.129-218.75-218.749-218.75z"/></svg>
-                                <span class="ml-2">Play Trailer</span>
-                            </a>
+                    <div x-data="{ isOpen: false }">
+                        @if ($movie['videos']['results'] > 0)
+                            <div class="mt-12">
+                                {{-- href="https://www.youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank"  --}}
+                                <button @click="isOpen = true" class="flex inline-flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                                    <svg class="w-6 fil-current" viewBox="0 0 499.999 499.999" ><path d="m171.875 372.237c-2.701 0-5.402-.702-7.812-2.09-4.837-2.792-7.812-7.95-7.812-13.535v-215.987c0-5.585 2.975-10.727 7.797-13.519 4.837-2.792 10.788-2.838 15.625-.015l187.5 107.94c4.837 2.777 7.828 7.95 7.828 13.535s-2.975 10.742-7.828 13.535l-187.5 108.047c-2.412 1.388-5.113 2.089-7.798 2.089zm15.625-204.589v161.926l140.564-81.009c-.001 0-140.564-80.917-140.564-80.917z"/><path d="m250 499.999c-137.848 0-250-112.152-250-250s112.152-249.999 250-249.999 250 112.152 250 250-112.153 249.999-250 249.999zm0-468.749c-120.62 0-218.75 98.129-218.75 218.75s98.129 218.75 218.75 218.75 218.749-98.13 218.749-218.75-98.129-218.75-218.749-218.75z"/></svg>
+                                    <span class="ml-2">Play Trailer</span>
+                                </button>
+                            </div>
+                        @endif
+
+                        <div style="background-color: rgba(0, 0, 0, 0.5);" class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto" x-show.transition.opacity="isOpen">
+                            <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
+                                <div class="bg-gray-900 rounded">
+                                    <div class="flex justify-end pr-4 pt-2">
+                                        <button @click="isOpen = false" class="text-3xl leading-none hover:text-gray-300">&times;</button>
+                                    </div>
+                                    <div class="modal-body px-8 py-8">
+                                        <div class="responsive-container overflow-hidden relative" style="padding-top: 56.25%">
+                                            <iframe width="560" height="315" class="responsive-iframe absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/{{ $movie['videos']['results'][0]['key'] }}" style="border:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endif
+                    </div>
+
                 </div>
             </div>
         </div>
